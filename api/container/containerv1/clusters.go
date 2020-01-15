@@ -138,21 +138,26 @@ func (c ClusterSoftlayerHeader) ToMap() map[string]string {
 
 //ClusterCreateRequest ...
 type ClusterCreateRequest struct {
-	Billing                string `json:"billing,omitempty"`
-	Datacenter             string `json:"dataCenter" description:"The worker's data center"`
-	Isolation              string `json:"isolation" description:"Can be 'public' or 'private'"`
-	MachineType            string `json:"machineType" description:"The worker's machine type"`
-	Name                   string `json:"name" binding:"required" description:"The cluster's name"`
-	PrivateVlan            string `json:"privateVlan" description:"The worker's private vlan"`
-	PublicVlan             string `json:"publicVlan" description:"The worker's public vlan"`
-	WorkerNum              int    `json:"workerNum,omitempty" binding:"required" description:"The number of workers"`
-	NoSubnet               bool   `json:"noSubnet" description:"Indicate whether portable subnet should be ordered for user"`
-	MasterVersion          string `json:"masterVersion,omitempty" description:"Desired version of the requested master"`
-	Prefix                 string `json:"prefix,omitempty" description:"hostname prefix for new workers"`
-	DiskEncryption         bool   `json:"diskEncryption" description:"disable encryption on a worker"`
-	EnableTrusted          bool   `json:"enableTrusted" description:"Set to true if trusted hardware should be requested"`
-	PrivateEndpointEnabled bool   `json:"privateSeviceEndpoint"`
-	PublicEndpointEnabled  bool   `json:"publicServiceEndpoint"`
+	GatewayEnabled               bool   `json:"GatewayEnabled,omitempty" description:"Create a Gateway Enabled cluster"`
+	Datacenter                   string `json:"dataCenter" description:"The Cluster's zone"`
+	DefaultWorkerPoolEntitlement string `json:"defaultWorkerPoolEntitlement,omitempty" description:"Default workerpool Entitlement"`
+	DefaultWorkerPoolName        string `json:"defaultWorkerPoolName,omitempty" description:"Set the default worker pool name"`
+	DisableAutoUpdate            string `json:"disableAutoUpdate,omitempty" description:"Set to true if master auto-updates should be disabled for this cluster"`
+	DiskEncryption               bool   `json:"diskEncryption" description:"Disable encryption on workers"`
+	Isolation                    string `json:"isolation" description:"Can be 'public' or 'private' - Depracated"`
+	MachineType                  string `json:"machineType" description:"The worker's machine type"`
+	MasterVersion                string `json:"masterVersion,omitempty" description:"Desired version of the requested master"`
+	Name                         string `json:"name" binding:"required" description:"The cluster's name"`
+	NoSubnet                     bool   `json:"noSubnet" description:"Indicate whether portable subnet should be ordered for user"`
+	PodSubnet                    string `json:"podSubnet,omitempty" description:"Private Pod IP address range (CIDR)"`
+	Prefix                       string `json:"prefix,omitempty" description:"Hostname prefix for workers"`
+	PrivateSeviceEndpoint        bool   `json:"privateSeviceEndpoint" description:"Enable the private service endpoint so Kubernetes master can be accessed over the public network"`
+	PrivateVlan                  string `json:"privateVlan" description:"The worker's private VLAN"`
+	PublicServiceEndpoint        bool   `json:"publicServiceEndpoint" description:"Enable the public service endpoint so Kubernetes master can be accessed over the public network"`
+	PublicVlan                   string `json:"publicVlan" description:"The worker's public VLAN"`
+	ServiceSubnet                string `json:"serviceSubnet,omitempty" description:"Private Kubernetes Service IP address range (CIDR)"`
+	SkipPermPrecheck             bool   `json:"SkipPermPrecheck,omitempty" description:"Skip the check for infrastructure permissions before creating the cluster"`
+	WorkerNum                    int    `json:"workerNum,omitempty" binding:"required" description:"The number of workers"`
 }
 
 // ServiceBindRequest ...
